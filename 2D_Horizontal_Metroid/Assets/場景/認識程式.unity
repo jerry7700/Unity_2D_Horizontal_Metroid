@@ -121,6 +121,49 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &498504503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 498504505}
+  - component: {fileID: 498504504}
+  m_Layer: 0
+  m_Name: "\u8A8D\u8B58API"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &498504504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498504503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ad5951d48356304bbe8b20e185d383b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &498504505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498504503}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.3866906, y: -2.361752, z: -3.9554417}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1232155945
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,13 +177,14 @@ GameObject:
   - component: {fileID: 1232155948}
   - component: {fileID: 1232155947}
   - component: {fileID: 1232155946}
+  - component: {fileID: 1232155951}
   m_Layer: 0
   m_Name: "\u6C7D\u8ECAA"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1232155946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +291,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1232155951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232155945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b7111d49f680e94384d445e26540aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 5
+  weight: 5.5
+  brand: BMW
+  hasWindow: 1
+  mycolor: {r: 0, g: 0, b: 0, a: 0}
+  red: {r: 1, g: 0, b: 0, a: 1}
+  bule: {r: 0, g: 0, b: 1, a: 1}
+  mycolor1: {r: 0.3, g: 0.6, b: 0.1, a: 1}
+  mycolor2: {r: 0.5, g: 0.8, b: 0.5, a: 7.6}
+  v2Zero: {x: 0, y: 0}
+  v2one: {x: 1, y: 1}
+  v2A: {x: 9, y: 10}
+  v3A: {x: 1, y: 2, z: 3}
+  v4A: {x: 1, y: 2, z: 3, w: 4}
+  picture: {fileID: 0}
+  sound: {fileID: 0}
+  objA: {fileID: 0}
+  objB: {fileID: 0}
+  tra: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!1 &1244915858
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,15 +417,15 @@ GameObject:
   - component: {fileID: 1795522039}
   - component: {fileID: 1795522038}
   - component: {fileID: 1795522037}
-  - component: {fileID: 1795522036}
   - component: {fileID: 1795522035}
+  - component: {fileID: 1795522036}
   m_Layer: 0
   m_Name: "\u6C7D\u8ECAB"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1795522035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,8 +438,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7111d49f680e94384d445e26540aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 10
-  weight: 25.44
+  height: 5
+  weight: 5.5
   brand: "\u6CD5\u62C9\u5229"
   hasWindow: 1
   mycolor: {r: 0, g: 0, b: 0, a: 0}

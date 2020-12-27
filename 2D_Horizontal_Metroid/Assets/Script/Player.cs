@@ -34,4 +34,29 @@ public class Player : MonoBehaviour
     public Rigidbody rb;
     [Header("動畫控制")]
     public Animator anim;
+    //移動
+    private void Move()
+    {
+        
+    }
+    //跳躍
+    private void Jump()
+    {
+
+    }
+    //傷害
+    private void Damage()
+    {
+
+    }
+    //受傷
+    private void Hurt(float damage)
+    {
+
+    }
+    //死亡
+    private void Death()
+    {
+
+    }
 }
