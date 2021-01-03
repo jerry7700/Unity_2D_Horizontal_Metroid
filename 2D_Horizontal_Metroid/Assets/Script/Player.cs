@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region 欄位
     [Header("移動速度")]
     [Range(0, 1000)]
     public float Speed = 10.5f;
@@ -31,13 +32,40 @@ public class Player : MonoBehaviour
     [Header("音效來源")]
     private AudioSource AS;
     [Header("2D 剛體")]
-    public Rigidbody rb;
+    private Rigidbody2D rb;
     [Header("動畫控制")]
-    public Animator anim;
+    private Animator anim;
+    #endregion
+    public float h;
+
+    private void Start()
+    {
+        //GetComponent<泛型>()
+        //泛型:泛指所有類型
+        //GetComponent<Animator>
+        //GetComponent<AudioSource>
+
+        //剛體欄位 = 取的元件<剛體>()
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        GetHorizontal();
+        Move();
+    }
+
+    private void GetHorizontal()
+    {
+        //輸入取得軸向("水平")
+        h = Input.GetAxis("Horizontal");
+    }
+    #region 方法
     //移動
     private void Move()
     {
-        
+        //剛體.加速度 = 二維(水平 * 速度, 原本加速度.y)
+        rb.velocity = new Vector2(h * Speed, rb.velocity.y);
     }
     //跳躍
     private void Jump()
@@ -59,4 +87,5 @@ public class Player : MonoBehaviour
     {
 
     }
+    #endregion
 }
