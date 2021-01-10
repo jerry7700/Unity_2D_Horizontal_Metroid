@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public float Speed = 10.5f;
     [Header("跳躍高度")]
     [Range(0, 3000)]
-    public int Jamp = 100;
+    public int jump = 100;
     [Header("是否在地板上")]
     [Tooltip("是否在地板上")]
     public bool grond = false;
@@ -47,12 +47,14 @@ public class Player : MonoBehaviour
 
         //剛體欄位 = 取的元件<剛體>()
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
         GetHorizontal();
         Move();
+        Jump();
     }
 
     private void GetHorizontal()
@@ -66,11 +68,30 @@ public class Player : MonoBehaviour
     {
         //剛體.加速度 = 二維(水平 * 速度, 原本加速度.y)
         rb.velocity = new Vector2(h * Speed, rb.velocity.y);
+
+        //如果玩家按下D就執行
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            //transform指的此腳本同一層的 transform元件
+            // Rotation 角度在程式是 localEulerAngless
+            transform.localEulerAngles = Vector3.zero;
+        }
+        //如果玩家按下A就執行
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
+        anim.SetBool("跑步開關", h != 0);
     }
     //跳躍
     private void Jump()
     {
-
+        //如果 在地面上 並且 按下空白鍵 才可以 跳躍
+        if (grond && Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(new Vector2(0, jump));
+            grond = false;
+        }
     }
     //傷害
     private void Damage()
