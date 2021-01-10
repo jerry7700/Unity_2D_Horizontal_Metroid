@@ -35,6 +35,10 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     [Header("動畫控制")]
     private Animator anim;
+    [Header("地面判定位移")]
+    public Vector3 offset;
+    [Header("地面判定半徑")]
+    public float Radius;
     #endregion
     public float h;
 
@@ -55,6 +59,14 @@ public class Player : MonoBehaviour
         GetHorizontal();
         Move();
         Jump();
+    }
+
+    //只在 Unity 繪製圖示
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1f, 0f, 0f, 0.6f);
+        //繪製球體(位置,半徑)
+        Gizmos.DrawSphere(transform.position + offset, Radius);
     }
 
     private void GetHorizontal()
@@ -90,6 +102,18 @@ public class Player : MonoBehaviour
         if (grond && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(new Vector2(0, jump));
+            grond = false;
+        }
+        //圓形2D 名稱 = 2D物理.(位置,半徑,1 << 圖層編號)
+        Collider2D hit = Physics2D.OverlapCircle(transform.position + offset, Radius, 1 << 8);
+        //如果 碰到的物件 存在的 就將是否為地面 設定為 是
+        if (hit)
+        {
+            grond = true;
+        }
+        //否則 沒碰到 就將是否為地面 設定為 否
+        else
+        {
             grond = false;
         }
     }
