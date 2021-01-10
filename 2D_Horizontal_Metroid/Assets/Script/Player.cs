@@ -103,6 +103,7 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(new Vector2(0, jump));
             grond = false;
+            anim.SetTrigger("跳躍觸發");
         }
         //圓形2D 名稱 = 2D物理.(位置,半徑,1 << 圖層編號)
         Collider2D hit = Physics2D.OverlapCircle(transform.position + offset, Radius, 1 << 8);
@@ -116,6 +117,8 @@ public class Player : MonoBehaviour
         {
             grond = false;
         }
+        anim.SetFloat("跳躍", rb.velocity.y);
+        anim.SetBool("是否在地面", grond);
     }
     //傷害
     private void Damage()
