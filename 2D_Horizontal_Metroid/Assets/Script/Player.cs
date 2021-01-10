@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
         //如果 碰到的物件 存在的 就將是否為地面 設定為 是
         if (hit)
         {
-            grond = true;
+            grond = true; 
         }
         //否則 沒碰到 就將是否為地面 設定為 否
         else
