@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     [Range(0, 200)]
     public int HP = 100;
     [Header("音效來源")]
-    private AudioSource AS;
+    private AudioSource aud;
     [Header("2D 剛體")]
     private Rigidbody2D rb;
     [Header("動畫控制")]
@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
         //剛體欄位 = 取的元件<剛體>()
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        aud = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour
         GetHorizontal();
         Move();
         Jump();
+        Damage();
     }
 
     //只在 Unity 繪製圖示
@@ -73,6 +75,14 @@ public class Player : MonoBehaviour
     {
         //輸入取得軸向("水平")
         h = Input.GetAxis("Horizontal");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "鑰匙")
+        {
+            Destroy(collision.gameObject);
+        }
     }
     #region 方法
     //移動
@@ -123,7 +133,17 @@ public class Player : MonoBehaviour
     //傷害
     private void Damage()
     {
-
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            anim.SetTrigger("攻擊");
+            aud.PlayOneShot(BulletAudio, Random.Range(1.2f, 1.5f));
+            GameObject tamp = Instantiate(Bullet, BulletGenrate.position, transform.rotation);
+            tamp.GetComponent<Rigidbody2D>().AddForce(BulletGenrate.right * BulletSpeed + BulletGenrate.up * 150);
+            ParticleSystem ps = tamp.GetComponent<ParticleSystem>();
+            var main = ps.main;
+            //startRotation 使用要先除180
+            main.startRotation = transform.eulerAngles.y / 180 * Mathf.PI;
+        }
     }
     //受傷
     private void Hurt(float damage)
