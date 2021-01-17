@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
     public Vector3 offset;
     [Header("地面判定半徑")]
     public float Radius;
+    [Header("鑰匙音效")]
+    public AudioClip keyaud;
     #endregion
     public float h;
 
@@ -82,6 +84,7 @@ public class Player : MonoBehaviour
         if (collision.tag == "鑰匙")
         {
             Destroy(collision.gameObject);
+            aud.PlayOneShot(keyaud, Random.Range(1.2f, 1.5f));
         }
     }
     #region 方法
