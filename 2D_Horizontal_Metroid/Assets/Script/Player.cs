@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -31,7 +30,10 @@ public class Player : MonoBehaviour
     public AudioClip BulletAudio;
     [Header("血量")]
     [Range(0, 200)]
-    public int HP = 100;
+    public float HP = 100;
+    [Header("最大血量")]
+    [Range(0, 200)]
+    public float HPMax = 100;
     [Header("音效來源")]
     private AudioSource aud;
     [Header("2D 剛體")]
@@ -44,6 +46,10 @@ public class Player : MonoBehaviour
     public float Radius;
     [Header("鑰匙音效")]
     public AudioClip keyaud;
+    [Header("血量文字")]
+    public Text HPText;
+    [Header("血量圖片")]
+    public Image HPImage;
     #endregion
     public float h;
 
@@ -58,6 +64,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         aud = GetComponent<AudioSource>();
+        HPMax = HP;
     }
 
     private void Update()
@@ -153,14 +160,20 @@ public class Player : MonoBehaviour
         }
     }
     //受傷
-    private void Hurt(float damage)
+    public void Hurt(float damage)
     {
-
+        HP -= damage;                   //遞減
+        HPText.text = HP.ToString();
+        HPImage.fillAmount = HP / HPMax;
+        if (HP <= 0) Death();
     }
     //死亡
     private void Death()
     {
-
+        HP = 0;
+        HPText.text = 0.ToString();
+        anim.SetBool("死亡開關", true);
+        this.enabled = false;
     }
     #endregion
 }

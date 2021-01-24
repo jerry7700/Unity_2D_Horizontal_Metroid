@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using System.Collections;
 
 
 [RequireComponent(typeof(AudioSource), typeof(Rigidbody2D), typeof(CapsuleCollider2D))]
@@ -10,10 +12,20 @@ public class Boss : MonoBehaviour
     public float Speed = 10.5f;
     [Header("攻擊範圍")]
     [Range(0, 100)]
-    public float rangestr = 100;
+    public float rangeattack = 10;
     [Header("攻擊力")]
     [Range(0, 1000)]
-    public float str = 100;
+    public float attack = 100;
+    [Header("攻擊時間")]
+    [Range(0, 10)]
+    public float attackCD = 3.5f;
+    [Header("攻擊時間")]
+    [Range(0, 10)]
+    public float attackDelay = 0.7f;
+    [Header("攻擊範圍位移")]
+    public Vector3 offsetAttack;
+    [Header("攻擊範圍大小")]
+    public Vector3 sizeAttack;
     [Header("血量")]
     [Range(0, 5000)]
     public float HP = 2500;
@@ -31,8 +43,16 @@ public class Boss : MonoBehaviour
     [Header("動畫控制")]
     private Animator anim;
     private Player player;
-    
+    private CameraControl2D cam;
+    private float timer;
+    public UnityEvent onDeath;
 
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(1f, 0f, 0f, 0.6f);
+        Gizmos.DrawCube(transform.position + transform.right * offsetAttack.x + transform.up * offsetAttack.y, sizeAttack);
+    }
 
     private void Start()
     {
@@ -41,11 +61,13 @@ public class Boss : MonoBehaviour
         aud = GetComponent<AudioSource>();
         HPMax = HP;
         player = FindObjectOfType<Player>();
+        cam = FindObjectOfType<CameraControl2D>();
         HPText.text = HP.ToString();
     }
 
     private void Update()
     {
+        if (anim.GetBool("死亡開關")) return; 
         Move();
     }
 
@@ -59,14 +81,15 @@ public class Boss : MonoBehaviour
         anim.SetTrigger("受傷觸發");    //受傷動畫
         HPText.text = HP.ToString();
         HPImage.fillAmount = HP / HPMax;
-        if (HP <= 0) Dead();
+        if (HP <= 0) Death();
     }
 
     /// <summary>
     /// 死亡
     /// </summary>
-    public void Dead()
+    public void Death()
     {
+        onDeath.Invoke();
         HP = 0;
         HPText.text = HP.ToString();
         anim.SetBool("死亡開關", true);
@@ -90,16 +113,16 @@ public class Boss : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
         */
-        
+
         //縮減程式碼
         float y = transform.position.x > player.transform.position.x ? 180 : 0;
         transform.eulerAngles = new Vector3(0, y, 0);
 
-        float dis= Vector2.Distance(transform.position, player.transform.position);
+        float dis = Vector2.Distance(transform.position, player.transform.position);
 
-        if (dis > rangestr)
+        if (dis > rangeattack)
         {
-           rb.MovePosition(transform.position + transform.right * Time.deltaTime * Speed);
+            rb.MovePosition(transform.position + transform.right * Time.deltaTime * Speed);
         }
         else
         {
@@ -108,9 +131,29 @@ public class Boss : MonoBehaviour
         anim.SetBool("走路開關", rb.velocity.magnitude > 0);
     }
 
+    /// <summary>
+    /// 攻擊
+    /// </summary>
     public void Attack()
     {
         rb.velocity = Vector3.zero;
-        anim.SetTrigger("攻擊觸發");
+        if (timer < attackCD)
+        {
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            anim.SetTrigger("攻擊觸發");
+            timer = 0;
+            StartCoroutine(DelaySendDamage());
+        }
+    }
+
+    public IEnumerator DelaySendDamage()
+    {
+        yield return new WaitForSeconds(attackDelay);
+        Collider2D hit = Physics2D.OverlapBox(transform.position + transform.right * offsetAttack.x + transform.up * offsetAttack.y, sizeAttack, 0, 1 << 9);
+        if (hit) player.Hurt(attack);
+        StartCoroutine(cam.ShakeCamera());
     }
 }
