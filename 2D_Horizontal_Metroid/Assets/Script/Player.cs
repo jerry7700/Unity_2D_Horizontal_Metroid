@@ -21,8 +21,11 @@ public class Player : MonoBehaviour
     [Tooltip("子彈生成點")]
     public Transform BulletGenrate;
     [Header("子彈速度")]
-    [Range(0, 50000)]
+    [Range(0, 5000)]
     public int BulletSpeed = 800;
+    [Header("子彈攻擊")]
+    [Range(0, 100)]
+    public int BulletDamag = 500;
     [Header("開槍音效")]
     [Tooltip("開槍音效")]
     public AudioClip BulletAudio;
@@ -146,6 +149,7 @@ public class Player : MonoBehaviour
             var main = ps.main;
             //startRotation 使用要先除180
             main.startRotation = transform.eulerAngles.y / 180 * Mathf.PI;
+            tamp.AddComponent<Bullet>().attack = BulletDamag;
         }
     }
     //受傷
