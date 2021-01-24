@@ -19,7 +19,7 @@ public class Boss : MonoBehaviour
     [Header("攻擊時間")]
     [Range(0, 10)]
     public float attackCD = 3.5f;
-    [Header("攻擊時間")]
+    [Header("攻擊延遲")]
     [Range(0, 10)]
     public float attackDelay = 0.7f;
     [Header("攻擊範圍位移")]

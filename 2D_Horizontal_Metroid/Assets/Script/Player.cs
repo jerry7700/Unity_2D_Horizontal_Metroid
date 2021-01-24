@@ -50,8 +50,8 @@ public class Player : MonoBehaviour
     public Text HPText;
     [Header("血量圖片")]
     public Image HPImage;
-    #endregion
     public float h;
+    #endregion
 
     private void Start()
     {
