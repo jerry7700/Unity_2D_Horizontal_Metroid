@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -50,9 +51,11 @@ public class Player : MonoBehaviour
     public Text HPText;
     [Header("血量圖片")]
     public Image HPImage;
-    public float h;
+    private float h;
+    private SpriteRenderer spr;
     #endregion
 
+    #region 事件
     private void Start()
     {
         //GetComponent<泛型>()
@@ -64,6 +67,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         aud = GetComponent<AudioSource>();
+        spr = GetComponent<SpriteRenderer>();
         HPMax = HP;
     }
 
@@ -75,6 +79,9 @@ public class Player : MonoBehaviour
         Damage();
     }
 
+    #endregion
+
+    #region 方法
     //只在 Unity 繪製圖示
     private void OnDrawGizmos()
     {
@@ -97,7 +104,7 @@ public class Player : MonoBehaviour
             aud.PlayOneShot(keyaud, Random.Range(1.2f, 1.5f));
         }
     }
-    #region 方法
+    
     //移動
     private void Move()
     {
@@ -118,6 +125,7 @@ public class Player : MonoBehaviour
         }
         anim.SetBool("跑步開關", h != 0);
     }
+
     //跳躍
     private void Jump()
     {
@@ -143,6 +151,7 @@ public class Player : MonoBehaviour
         anim.SetFloat("跳躍", rb.velocity.y);
         anim.SetBool("是否在地面", grond);
     }
+
     //傷害
     private void Damage()
     {
@@ -159,14 +168,35 @@ public class Player : MonoBehaviour
             tamp.AddComponent<Bullet>().attack = BulletDamag;
         }
     }
+
     //受傷
     public void Hurt(float damage)
     {
         HP -= damage;                   //遞減
         HPText.text = HP.ToString();
         HPImage.fillAmount = HP / HPMax;
+        StartCoroutine(DamagEffect());
         if (HP <= 0) Death();
     }
+
+    /// <summary>
+    /// 延遲受傷顏色
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator DamagEffect()
+    {
+        Color red = new Color(1, 0.1f, 0.1f);
+        float interval = 0.1f;
+
+        for (int i = 0; i < 5; i++)
+        {
+            spr.color = red;
+            yield return new WaitForSeconds(interval);
+            spr.color = Color.white;
+            yield return new WaitForSeconds(interval);
+        }
+    }
+    
     //死亡
     private void Death()
     {
@@ -174,6 +204,8 @@ public class Player : MonoBehaviour
         HPText.text = 0.ToString();
         anim.SetBool("死亡開關", true);
         this.enabled = false;
+        rb.Sleep();
     }
+
     #endregion
 }
