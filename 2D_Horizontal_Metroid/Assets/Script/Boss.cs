@@ -7,6 +7,7 @@ using System.Collections;
 [RequireComponent(typeof(AudioSource), typeof(Rigidbody2D), typeof(CapsuleCollider2D))]
 public class Boss : MonoBehaviour
 {
+    #region 欄位
     [Header("移動速度")]
     [Range(0, 1000)]
     public float Speed = 10.5f;
@@ -46,12 +47,15 @@ public class Boss : MonoBehaviour
     private CameraControl2D cam;
     private float timer;
     public UnityEvent onDeath;
-
+    #endregion
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(1f, 0f, 0f, 0.6f);
+        Gizmos.color = new Color(0f, 1f, 0f, 0.5f);
         Gizmos.DrawCube(transform.position + transform.right * offsetAttack.x + transform.up * offsetAttack.y, sizeAttack);
+
+        Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
+        Gizmos.DrawSphere(transform.position, rangeattack);
     }
 
     private void Start()
@@ -81,6 +85,8 @@ public class Boss : MonoBehaviour
         anim.SetTrigger("受傷觸發");    //受傷動畫
         HPText.text = HP.ToString();
         HPImage.fillAmount = HP / HPMax;
+        if (HP <= HPMax * 0.8f) rangeattack = 80;
+
         if (HP <= 0) Death();
     }
 
@@ -103,6 +109,11 @@ public class Boss : MonoBehaviour
     /// </summary>
     public void Move()
     {
+        //如果動畫是 骷髏攻擊 或 骷髏受傷 就跳出
+        //GetCurrentAnimatorStateInfo是取得目前動畫的狀態資料
+        AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(0);
+        if (info.IsName("骷髏_攻擊") || info.IsName("骷髏_受傷")) return;
+        
         /** 判斷式寫法
         if (transform.position.x > player.transform.position.x)
         {

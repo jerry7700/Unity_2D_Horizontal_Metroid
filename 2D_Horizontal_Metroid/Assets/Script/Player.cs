@@ -175,6 +175,7 @@ public class Player : MonoBehaviour
         HP -= damage;                   //遞減
         HPText.text = HP.ToString();
         HPImage.fillAmount = HP / HPMax;
+        //有使用IEnumerator就一定要用StartCoroutine();
         StartCoroutine(DamagEffect());
         if (HP <= 0) Death();
     }
