@@ -47,6 +47,8 @@ public class Boss : MonoBehaviour
     private CameraControl2D cam;
     private float timer;
     public UnityEvent onDeath;
+    private bool isSecond;
+    private ParticleSystem psSecond;
     #endregion
 
     private void OnDrawGizmosSelected()
@@ -66,6 +68,7 @@ public class Boss : MonoBehaviour
         HPMax = HP;
         player = FindObjectOfType<Player>();
         cam = FindObjectOfType<CameraControl2D>();
+        psSecond = GameObject.Find("骷髏第二段攻擊特效").GetComponent<ParticleSystem>();
         HPText.text = HP.ToString();
     }
 
@@ -85,8 +88,11 @@ public class Boss : MonoBehaviour
         anim.SetTrigger("受傷觸發");    //受傷動畫
         HPText.text = HP.ToString();
         HPImage.fillAmount = HP / HPMax;
-        if (HP <= HPMax * 0.8f) rangeattack = 80;
-
+        if (HP <= HPMax * 0.8f)
+        {
+            isSecond = true;
+            rangeattack = 80;
+        }
         if (HP <= 0) Death();
     }
 
@@ -166,5 +172,7 @@ public class Boss : MonoBehaviour
         Collider2D hit = Physics2D.OverlapBox(transform.position + transform.right * offsetAttack.x + transform.up * offsetAttack.y, sizeAttack, 0, 1 << 9);
         if (hit) player.Hurt(attack);
         StartCoroutine(cam.ShakeCamera());
+
+        if (isSecond) psSecond.Play();
     }
 }

@@ -51,6 +51,8 @@ public class Player : MonoBehaviour
     public Text HPText;
     [Header("血量圖片")]
     public Image HPImage;
+    [Header("結束畫面")]
+    public GameObject panelGameOver;
     private float h;
     private SpriteRenderer spr;
     #endregion
@@ -153,7 +155,7 @@ public class Player : MonoBehaviour
     }
 
     //傷害
-    private void Damage()
+    public void Damage()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -201,6 +203,7 @@ public class Player : MonoBehaviour
     //死亡
     private void Death()
     {
+        panelGameOver.SetActive(true);
         HP = 0;
         HPText.text = 0.ToString();
         anim.SetBool("死亡開關", true);
