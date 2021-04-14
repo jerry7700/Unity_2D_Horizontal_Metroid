@@ -15,11 +15,11 @@ ScriptsOnlyBuild:
     - TeleportManager
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
+    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
-    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.PaintableSceneViewGrid
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
@@ -45,8 +45,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Shadow
     - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
-    com.unity.multiplayer-hlapi.Runtime.dll:
-    - UnityEngine.Networking.NetworkCallbacks
   sceneClasses:
     "Assets/\u5834\u666F/\u904A\u6232\u5834\u666F.unity":
     - Class: 1
@@ -98,37 +96,37 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11596}
     - Class: 114
-      Script: {instanceID: 12032}
+      Script: {instanceID: 11744}
     - Class: 114
-      Script: {instanceID: 12066}
+      Script: {instanceID: 12034}
     - Class: 114
-      Script: {instanceID: 12174}
+      Script: {instanceID: 12068}
     - Class: 114
-      Script: {instanceID: 12288}
+      Script: {instanceID: 12176}
     - Class: 114
-      Script: {instanceID: 12414}
+      Script: {instanceID: 12290}
     - Class: 114
-      Script: {instanceID: 12572}
+      Script: {instanceID: 12416}
     - Class: 114
-      Script: {instanceID: 12800}
+      Script: {instanceID: 12574}
     - Class: 114
-      Script: {instanceID: 13238}
+      Script: {instanceID: 12802}
     - Class: 114
-      Script: {instanceID: 13452}
+      Script: {instanceID: 13240}
     - Class: 114
-      Script: {instanceID: 13586}
+      Script: {instanceID: 13454}
     - Class: 114
-      Script: {instanceID: 13966}
+      Script: {instanceID: 13520}
     - Class: 114
-      Script: {instanceID: 13972}
+      Script: {instanceID: 13590}
     - Class: 114
-      Script: {instanceID: 14010}
+      Script: {instanceID: 13970}
     - Class: 114
-      Script: {instanceID: 14020}
+      Script: {instanceID: 13976}
     - Class: 114
-      Script: {instanceID: 20524}
+      Script: {instanceID: 14014}
     - Class: 114
-      Script: {instanceID: 24038}
+      Script: {instanceID: 14024}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -203,17 +201,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11596}
     - Class: 114
-      Script: {instanceID: 12070}
+      Script: {instanceID: 12072}
     - Class: 114
-      Script: {instanceID: 12174}
+      Script: {instanceID: 12176}
     - Class: 114
-      Script: {instanceID: 12288}
+      Script: {instanceID: 12290}
     - Class: 114
-      Script: {instanceID: 12800}
+      Script: {instanceID: 12802}
     - Class: 114
-      Script: {instanceID: 13452}
+      Script: {instanceID: 13454}
     - Class: 114
-      Script: {instanceID: 13972}
+      Script: {instanceID: 13976}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -389,6 +387,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 3480e0a32639651fd829263edd33492a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BossTrigger
   - hash:
       serializedVersion: 2
       Hash: 0dbc3be398b4869a5c8d0d8481ee402c
@@ -757,6 +761,12 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
+      Hash: b9383e5cfb60b76cf7f27a138d6e90c7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TeleportManager
+  - hash:
+      serializedVersion: 2
       Hash: 2122ad77b35f7f0129bab21633be2a24
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -923,18 +933,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: b9383e5cfb60b76cf7f27a138d6e90c7
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: TeleportManager
-  - hash:
-      serializedVersion: 2
-      Hash: 3480e0a32639651fd829263edd33492a
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: BossTrigger
   platform: 20
   scenePathNames:
   - "Assets/\u5834\u666F/\u9078\u55AE.unity"
